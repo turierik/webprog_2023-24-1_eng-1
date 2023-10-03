@@ -1,0 +1,20 @@
+NEXT CLASS: Oct 10th ---> JavaScript small exam (group test)!
+
+3 "little" exercises ~60 min
+
+Topics:
+1. language and array functions
+2. basic event handling
+3. delegation
+
+Knowledgewise:
+- basics, array functions and objects
+- DOM, innerText, innerHTML
+- qS, qSA
+- element generation (direct innerHTML /or/ createElement + appendChild)
+- .style._____
+- .classList.____
+- addEventListener - type: click, input, mouseover, mouseout, mousemove
+- delegation
+
+NO RETAKES!!!
