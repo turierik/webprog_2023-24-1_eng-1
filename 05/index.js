@@ -23,12 +23,21 @@ ctx.lineTo(200, 200) // side 2
 ctx.lineTo(100, 100) // side 3
 ctx.fill() // or ctx.stroke()
 
-const circle = {
+const circles = [{
     x: 200,
     y: 0,
     vy: 0,
-    r: 20
-}
+    r: 20,
+    c: 'red'
+},
+{
+    x: 100,
+    y: 100,
+    vy: 0,
+    r: 15,
+    c: 'blue'
+},
+]
 let last = performance.now()
 function gameloop(){
     let dt = performance.now() - last
@@ -42,16 +51,35 @@ gameloop()
 
 function draw(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.beginPath()
-    ctx.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI)
-    ctx.fill()
+    for (const circle of circles){
+        ctx.beginPath()
+        ctx.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI)
+        ctx.fillStyle = circle.c
+        ctx.fill()
+    }   
 }
 
 function update(dt){
-    circle.vy += 0.0001 * dt
-    circle.y += circle.vy * dt
+    for (const circle of circles){
+        circle.vy += 0.0001 * dt
+        circle.y += circle.vy * dt
+        if (circle.y >= canvas.height - circle.r / 2) 
+            circle.vy *= -1
+    }
 }
 
+canvas.addEventListener('click', function(e){
+    circles.push({
+        x: e.offsetX,
+        y: e.offsetY,
+        vy: 0,
+        r: 10 + Math.random() * 10,
+        c: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`
+    })
+})
+
 // Task:
+// - multiple balls
 // - add a new falling ball when you click on the canvas
 // - bounce the ball on the lower edge
+// - random colour
