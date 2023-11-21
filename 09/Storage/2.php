@@ -28,9 +28,11 @@
                 "email" => $email,
                 "age" => intval($age)
             ];
-            $data = json_decode(file_get_contents('data.json'), true);
-            $data[] = $person;
-            file_put_contents('data.json', json_encode($data, JSON_PRETTY_PRINT));
+            
+            include_once("storage.php");
+            $stor = new Storage(new JsonIO('data.json'));
+            $stor -> add($person);
+
             header("location: list.php");
         }
     }

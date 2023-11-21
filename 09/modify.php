@@ -1,9 +1,16 @@
 <?php
     $errors = [];
-    $fullname = $_POST['fullname'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $age = $_POST['age'] ?? '';
-    $accept = $_POST['accept'] ?? '';
+
+    $data = json_decode(file_get_contents('data.json'), true);
+    $id = $_GET['id'] ?? -1;
+    if (!isset($data[$id])){
+        header("location: list.php");
+    }
+
+    $fullname = $_POST['fullname'] ?? $data[$id]["fullname"];
+    $email = $_POST['email'] ??  $data[$id]["email"];
+    $age = $_POST['age'] ??  $data[$id]["age"];
+    $accept = $_POST['accept'] ??  true;
 
     if ($_POST){
         if (count(explode(' ', $fullname)) < 2){
@@ -28,18 +35,13 @@
                 "email" => $email,
                 "age" => intval($age)
             ];
-            $data = json_decode(file_get_contents('data.json'), true);
-            $data[] = $person;
+            
+            $data[$id] = $person;
             file_put_contents('data.json', json_encode($data, JSON_PRETTY_PRINT));
             header("location: list.php");
         }
     }
-    // TASKS
-    // 1. validate that the name has at least 2 words (there is a space)
-    // 2. validate the email format
-    // 3. validate that the age is an integer
-    // 4. checkbox must be checked
-    // 5. ---> print the errors :)
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +57,7 @@
                 echo "<li>$e</li>";
         ?>
     </ul>
-    <form action="2.php" method="POST">
+    <form action="modify.php?id=<?= $id ?>" method="POST">
         Full name: <input type="text" name="fullname" value="<?= $fullname ?>">
         <?= $errors['fullname'] ?? '' ?>
         <br>

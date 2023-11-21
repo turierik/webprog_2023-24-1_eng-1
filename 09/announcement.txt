@@ -1,0 +1,12 @@
+NEXT CLASS: Nov 28th ---> PHP small exam (group test)!
+
+3 "little" exercises ~60 min
+
+Topics:
+1. language and array functions
+2. user input (forms and URL parameters, GET, POST) + validation
+3. data storage (natively or Storage.php -> listing, show one, adding, modifying, deleting)
+
+Example test: https://canvas.elte.hu/courses/38927/pages/php-group-test-examples?module_item_id=546896
+
+NO RETAKES!!!
